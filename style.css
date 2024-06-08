@@ -1,6 +1,90 @@
 /*このプログラムはサイト自体のデザインやレイアウト、細かい設定をする場所*/
-body{
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    font-family: 'Noto Sans JP', sans-serif;
+
+/* Reset CSS */
+/* すべての要素のマージン、パディングをリセットします */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 全体のページのスタイル */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* ヘッダー */
+header {
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+/* ナビゲーション */
+nav {
+    background: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* メインコンテンツ */
+.container {
+    max-width: 960px;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 20px;
+}
+
+/* セクション */
+section {
+    float: left;
+    width: 70%;
+}
+
+/* サイドバー */
+aside {
+    float: right;
+    width: 30%;
+    background: #f4f4f4;
+    padding: 10px;
+}
+
+/* フッター */
+footer {
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px 0;
+}
+
+/* リンク */
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #777;
 }
