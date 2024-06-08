@@ -1,0 +1,6 @@
+/*このプログラムはサイト自体のデザインやレイアウト、細かい設定をする場所*/
+body{
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    font-family: 'Noto Sans JP', sans-serif;
+}
