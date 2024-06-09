@@ -35,6 +35,18 @@
         <h2>セクション 3</h2>
         <p>数A</p>
     </section>
+
+   <script>
+    document.querySelectorAll('.menu a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script> 
     
     <script src="index.js"></script><!-- これがHTMLにJavascriptを読み込ませるプログラム -->
 </body>
