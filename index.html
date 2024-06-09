@@ -9,6 +9,33 @@
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Tsukimi+Rounded&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css"><!--ここに書いてあるのがHTMLにcssを読み込ませるためのプログラム-->
     <script src="script.js" defer></script><!---これはもう一つのjavascript.詳細確認してください-->
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .menu {
+            position: fixed;
+            top: 0;
+            background: #fff;
+            width: 100%;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .menu a {
+            margin: 0 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .menu a:hover {
+            text-decoration: underline;
+        }
+        section {
+            padding: 100px 20px;
+            margin-top: 60px;
+            border-bottom: 1px solid #ccc;
+        }
+    </style>
 </head>
 <body>
 
