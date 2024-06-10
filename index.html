@@ -33,6 +33,14 @@
         }
         .menu a:visited {
             color: #6C3483; /* 訪問済みのリンク色 */
+        }                
+        .fixed-link {
+            position: fixed;
+            bottom: 10px; /* 画面下から10pxの位置に固定 */
+            right: 10px; /* 画面右から10pxの位置に固定 */
+            background: #f0f0f0;
+            padding: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
         .title {
             margin-top: 80px; /* 上に80pxのスペースを追加 */
@@ -62,7 +70,7 @@
 
     <section id="section1">
         <h2>数Ⅰ</h2>
-        <div class="menu a">
+        <div class="fixed-link">
         <a href="page1.html">式と計算</a>
         </div>
     </section>
