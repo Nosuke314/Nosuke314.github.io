@@ -21,17 +21,26 @@
             padding: 10px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-        .menu a {
+       .menu a {
+            margin: 0 10px;
+            cursor: pointer;
+            text-decoration: none;
+            color: #007BFF;
+        }
+        .menu a:hover {
+            text-decoration: underline;
+        }
+        .menu b {
             margin: 0 10px;
             cursor: pointer;
             text-decoration: none;
             color: #007BFF; /* 通常時のリンク色 */
         }
-        .menu a:hover {
+        .menu b:hover {
             text-decoration: underline;
             color: #FF5733; /* ホバー時のリンク色 */
         }
-        .menu a:visited {
+        .menu b:visited {
             color: #6C3483; /* 訪問済みのリンク色 */
         }                
         .fixed-link {
@@ -70,7 +79,7 @@
 
     <section id="section1">
         <h2>数Ⅰ</h2>
-        <div class=menu a">
+        <div class=menu b">
         <a href="page1.html">式と計算</a>
         </div>
     </section>
