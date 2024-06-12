@@ -6,8 +6,8 @@
   border-top: 5px solid #3498db;
   border-radius: 50%;
   animation: spin 1s linear infinite;
-  display: none;/＊初期は非表示*/
-  margin: 20px auto;/* 中央に配置*/
+  display: none;/* 初期は非表示 */
+  margin: 20px auto;/* 中央に配置 */
 }
 @keyframes spin {
   0% { transform: rotate(0deg); }
@@ -15,7 +15,7 @@
 }
 #resultImage {
   text-align: center;
-  display: none;/＊初期は非表示＊/
+  display: none;/* 初期は非表示 */
   margin-top: 20px;
 }
 ・correctImage {
