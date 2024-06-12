@@ -1,6 +1,6 @@
 // script.js
 function checkAnswer() {
-    const correctAnswer = "答え"; // 正しい答えをここに設定
+    const correctAnswer = "テスト"; // 正しい答えをここに設定
     const userAnswer = document.getElementById("answerBox").value;
     const spinner = document.getElementById("spinner");
     const resultImage = document.getElementById("resultImage");
