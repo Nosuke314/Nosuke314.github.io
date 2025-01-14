@@ -53,3 +53,23 @@ body {
 .menu a:hover {
   color: #ff9800;
 }
+
+/* ホームセクションのスタイル */
+#home {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh; /* ビューポート全体の高さを確保 */
+  background-color: #f4f4f4; /* 背景色を設定 */
+  color: #333; /* 文字色を設定 */
+}
+
+.home-content {
+  max-width: 800px; /* テキストの横幅を制限 */
+  padding: 20px;
+  border: 1px solid #ddd; /* シンプルな枠線 */
+  border-radius: 8px; /* 角を丸くする */
+  background: #fff; /* 背景を白に設定 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 軽い影を付ける */
+}
