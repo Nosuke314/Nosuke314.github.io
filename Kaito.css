@@ -31,14 +31,14 @@ body {
 
 .menu {
   list-style: none;
-  display: none; /* 初期状態で非表示 */
-  flex-direction: column;
+  display: fixed; /* 初期状態で隠しておく */
+  top: -100%;
+  left: 0;
+  width: 100%;
   background-color: #333;
-  position: absolute;
-  top: 50px;
-  right: 20px;
-  border: 1px solid #444;
-  padding: 10px;
+  padding: 20px;
+  trancition: top 0.5s ease;
+  z-index: 1000;
 }
 
 .menu li {
@@ -48,10 +48,16 @@ body {
 .menu a {
   text-decoration: none;
   color: white;
+  display: block;
+  margin: 10px 0;
 }
 
 .menu a:hover {
   color: #ff9800;
+}
+
+.menu.show {
+  top: 0;
 }
 
 /* ホームセクションのスタイル */
