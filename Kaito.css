@@ -90,15 +90,3 @@ body {
   background-color: #f4f4f4; /* 背景色を設定 */
   color: #333; /* 文字色を設定 */
 }
-
-.x-icon {
-  font-size: 48px; /* アイコンの大きさ */
-  color: red; /* アイコンの色 */
-  font-weight: bold; /* アイコンを太字に */
-  cursor: pointer; /* クリック可能なカーソル */
-  transition: color 0.3s ease; /* ホバー時の色変化にアニメーションをつける */
-}
-
-.x-icon:hover {
-  color: darkred; /* ホバー時にアイコンの色を変える */
-}
