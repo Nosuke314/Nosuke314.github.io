@@ -31,13 +31,13 @@ body {
 
 .menu {
   list-style: none;
-  display: fixed; /* 初期状態で隠しておく */
+  position: fixed; /* 初期状態で隠しておく */
   top: -100%;
   left: 0;
   width: 100%;
   background-color: #333;
   padding: 20px;
-  trancition: top 0.5s ease;
+  transition: top 0.5s ease;
   z-index: 1000;
 }
 
