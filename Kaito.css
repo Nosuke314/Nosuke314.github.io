@@ -32,7 +32,7 @@ body {
 .menu {
   list-style: none;
   position: fixed; /* 初期状態で隠しておく */
-  top: −100%;
+  top: -100%;
   left: 0;
   width: 100%;
   background-color: #333;
