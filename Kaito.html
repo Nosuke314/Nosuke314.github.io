@@ -21,6 +21,18 @@
     tr:nth-child(even) {
       background-color: #f9f9f9;
     }
+    #close-button {
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+
+    /* アイコン画像のサイズ */
+    #close-button img {
+      width: 30px;
+      height: 30px;
+    }
   </style>
   <link rel="stylesheet" href="Kaito.css">
 </head>
@@ -100,7 +112,18 @@
   <div class="home-content">
     <h1>協力者の要請</h1>
     <p>以下のボタンで協力者を要請できます</p>
-    <a href="ここにリンク" class="x-icon">X</a>
+    
+      <button id="close-button">
+    <img src="x-icon.png" alt="Close" />
+      </button>
+    
+    <script>
+    // クリックしたときにリンクを開く
+    document.getElementById("close-button").addEventListener("click", function() {
+      window.location.href = "https://example.com";  // ここに遷移先のURLを指定
+    });
+    </script>
+    
   </div>
 </body>
 </html>
