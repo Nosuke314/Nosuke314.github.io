@@ -2,6 +2,9 @@
 const hamburger = document.getElementById("hamburger");
 const menu = document.getElementById("menu");
 
+// メニューアイテムを選択
+const menuItems = document.querySelectorAll(".menu a");
+
 hamburger.addEventListener("click", () => {
   menu.classList.toggle("show");
 });
