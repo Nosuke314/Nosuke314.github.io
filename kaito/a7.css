@@ -25,7 +25,7 @@ h1 {
   padding: 15px;
   font-size: 18px;
   color: white;
-  background-color: #007BFF;
+  background-color: #6d706e;
   border: none;
   cursor: pointer;
   text-align: left;
@@ -33,7 +33,7 @@ h1 {
 }
 
 .tab-button:hover {
-  background-color: #0056b3;
+  background-color: #525453;
 }
 
 .tab-content {
@@ -57,7 +57,7 @@ h1 {
 }
 
 .image-item {
-  flex: 1 1 calc(33.333% - 20px); /* 3列表示 */
+  flex: 1 1 calc(100% - 20px); /* 3列表示 */
   box-sizing: border-box;
 }
 
