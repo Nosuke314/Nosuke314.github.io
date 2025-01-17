@@ -1,37 +1,52 @@
 body {
   font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
   margin: 0;
   padding: 0;
-  background-color: #f9f9f9;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
 }
 
 .tab-container {
-  width: 100%;
-  max-width: 600px;
+  max-width: 800px;
   margin: 20px auto;
-  text-align: center;
+  padding: 10px;
+}
+
+.tab-item {
+  margin-bottom: 10px;
 }
 
 .tab-button {
   width: 100%;
   padding: 15px;
-  background-color: #525252;
-  color: white;
-  border: none;
   font-size: 18px;
+  color: white;
+  background-color: #007BFF;
+  border: none;
   cursor: pointer;
+  text-align: left;
+  outline: none;
 }
 
 .tab-button:hover {
-  background-color: #4d4d4d;
+  background-color: #0056b3;
 }
 
 .tab-content {
-  overflow: hidden;
   max-height: 0;
+  overflow: hidden;
   transition: max-height 0.5s ease;
   background-color: white;
   border: 1px solid #ddd;
+  padding: 0 10px;
+}
+
+.tab-content.open {
+  max-height: 500px; /* 必要に応じて調整 */
 }
 
 .image-container {
@@ -42,18 +57,19 @@ body {
 }
 
 .image-item {
-  flex: 1 1 calc(100% - 20px); /* 3列表示 */
+  flex: 1 1 calc(33.333% - 20px); /* 3列表示 */
   box-sizing: border-box;
 }
 
 .image-item img {
   width: 100%;
-  height: auto;
-  display: block;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
 }
 
 .image-item p {
   margin: 5px 0 0;
-  font-size: 14px;
   text-align: center;
+  font-size: 14px;
 }
