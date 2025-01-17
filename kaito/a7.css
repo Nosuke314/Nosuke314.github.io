@@ -42,7 +42,7 @@ body {
 }
 
 .image-item {
-  flex: 1 1 calc(33.333% - 20px); /* 3列表示 */
+  flex: 1 1 calc(100% - 20px); /* 3列表示 */
   box-sizing: border-box;
 }
 
