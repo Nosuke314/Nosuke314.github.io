@@ -3,21 +3,105 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>削除されたページ</title>
-  <link rel="stylesheet" href="a7.css">
+  <title>シンプルなタブ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      line-height: 1.6;
+    }
+
+    .tab-container {
+      margin: 20px 0;
+    }
+
+    .tab-button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 10px;
+      background-color: #f4f4f4;
+      border: 1px solid #ddd;
+      cursor: pointer;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .tab-button[aria-expanded="true"] {
+      background-color: #ddd;
+      font-weight: bold;
+    }
+
+    .tab-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      border: 1px solid #ddd;
+      border-top: none;
+      padding: 0 10px;
+    }
+
+    .tab-content.open {
+      max-height: 500px; /* 必要に応じて調整 */
+      padding: 10px;
+    }
+
+    .image-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .image-item {
+      width: calc(50% - 10px); /* 2列表示 */
+      box-sizing: border-box;
+    }
+
+    .image-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
 </head>
 <body>
-  <h1>削除された項目</h1>
-
-  <!-- タブ構造のコンテナ -->
+  <h1>シンプルなタブの例</h1>
   <div id="tab-container" class="tab-container">
-    <!-- JavaScriptでタブが動的に生成されます -->
+    <!-- タブボタン -->
+    <button class="tab-button" id="tab-button" aria-expanded="false">12/19 予告1 取得物</button>
+    
+    <!-- タブコンテンツ -->
+    <div class="tab-content" id="tab-content">
+      <div class="image-container">
+        <div class="image-item">
+          <img src="無題169_20250117083244.png" alt="予告状">
+          <p>予告状</p>
+        </div>
+        <div class="image-item">
+          <img src="IMG_1548.png" alt="謎の紙1">
+          <p>謎の紙1</p>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="deleted-items">
-   <a href="リンク先のURL" target="_blank">削除された項目</a>
-  </div>
-　
-  <script src="sakujyo.js"></script>
+  <script>
+    // タブの開閉処理
+    const tabButton = document.getElementById("tab-button");
+    const tabContent = document.getElementById("tab-content");
+
+    tabButton.addEventListener("click", () => {
+      const isOpen = tabContent.classList.contains("open");
+
+      // 状態を切り替える
+      if (isOpen) {
+        tabContent.classList.remove("open");
+        tabButton.setAttribute("aria-expanded", "false");
+      } else {
+        tabContent.classList.add("open");
+        tabButton.setAttribute("aria-expanded", "true");
+      }
+    });
+  </script>
 </body>
 </html>
