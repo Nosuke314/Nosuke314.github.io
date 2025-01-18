@@ -28,7 +28,7 @@ const tabs = [
 function createTabs(tabs) {
   const container = document.getElementById("tab-container");
 
-  tabs.forEach((tab, index) => {
+  tabs.forEach((tab) => {
     // タブボタン
     const tabButton = document.createElement("button");
     tabButton.className = "tab-button";
@@ -63,14 +63,19 @@ function createTabs(tabs) {
     // タブの開閉処理
     tabButton.addEventListener("click", () => {
       const isOpen = tabContent.classList.contains("open");
+
+      // 他のタブを閉じる
       document.querySelectorAll(".tab-content").forEach((content) => {
+        content.style.maxHeight = null;
         content.classList.remove("open");
       });
       document.querySelectorAll(".tab-button").forEach((btn) => {
         btn.setAttribute("aria-expanded", "false");
       });
 
+      // 開閉状態を切り替え
       if (!isOpen) {
+        tabContent.style.maxHeight = tabContent.scrollHeight + "px";
         tabContent.classList.add("open");
         tabButton.setAttribute("aria-expanded", "true");
       }
