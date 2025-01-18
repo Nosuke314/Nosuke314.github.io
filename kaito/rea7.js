@@ -23,7 +23,7 @@ const tabs = [
     ],
   },  
   {
-    title: "12／22 予告3 取得物",
+    title: "12/22 予告3 取得物",
     images: [
       { src: "無題169_20250117083244.png", title: "予告状" },
       { src: "IMG_1548.png", title: "謎の紙1" },
