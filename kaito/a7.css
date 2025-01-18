@@ -46,7 +46,7 @@ h1 {
 }
 
 .tab-content.open {
-  max-height: 1000px; /* 必要に応じて調整 */
+  /* 開いた状態のスタイル（高さはJSで制御） */
 }
 
 .image-container {
