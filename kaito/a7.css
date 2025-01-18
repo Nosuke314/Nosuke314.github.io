@@ -46,7 +46,7 @@ h1 {
 }
 
 .tab-content.open {
-  max-height: 500px; /* 必要に応じて調整 */
+  max-height: 1000px; /* 必要に応じて調整 */
 }
 
 .image-container {
