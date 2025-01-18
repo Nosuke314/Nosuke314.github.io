@@ -29,8 +29,6 @@ const tabs = [
       { src: "IMG_1548.png", title: "謎の紙1" },
       { src: "IMG_1550.png", title: "謎の紙2" },
       { src: "IMG_1551.png", title: "謎の紙3" },
-      { src: "IMG_1552.png", title: "謎の紙4" },
-      { src: "IMG_1553.png", title: "謎の紙5" },
     ],
   },
 ];
