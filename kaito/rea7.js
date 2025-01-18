@@ -25,10 +25,10 @@ const tabs = [
   {
     title: "12/22 予告3 取得物",
     images: [
-      { src: "無題169_20250117083244.png", title: "予告状" },
-      { src: "IMG_1548.png", title: "謎の紙1" },
-      { src: "IMG_1550.png", title: "謎の紙2" },
-      { src: "IMG_1551.png", title: "謎の紙3" },
+      { src: "IMG_1554.png", title: "予告状" },
+      { src: "IMG_1555.png", title: "謎の紙1" },
+      { src: "IMG_1556.png", title: "謎の紙2" },
+      { src: "IMG_1557.png", title: "謎の紙3" },
     ],
   },
 ];
