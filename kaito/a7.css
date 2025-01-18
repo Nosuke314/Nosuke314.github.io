@@ -81,6 +81,6 @@ h1 {
   right: 10px;     /* 右から10px */
   font-size: 12px; /* 小さい文字サイズ */
   color: #666;     /* 薄い文字色 */
-  background-color: rgba(255, 255, 255, 0.8); /* 半透明の背景 */
+  background-color: #f9f9f9; /* 半透明の背景 */
   padding: 5px 10px; /* 内側の余白 */
 }
