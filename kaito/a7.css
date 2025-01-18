@@ -63,6 +63,7 @@ h1 {
 
 .image-item img {
   width: 100%;
+  height: auto;
   border: 2px solid #ddd;
   border-radius: 8px;
   background-color: #fff;
