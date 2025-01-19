@@ -1,7 +1,7 @@
 // タブデータ
 const tabs = [
   {
-    title: "12/21 窃盗1 取得物",
+    title: "12/19 窃盗1 取得物",
     images: [
       { src: "無題169_20250117083244.png", title: "予告状" },
       { src: "IMG_1548.png", title: "謎の紙1" },
@@ -12,7 +12,7 @@ const tabs = [
     ],
   },
   {
-    title: "12/22 窃盗2 取得物",
+    title: "12/20 窃盗2 取得物",
     images: [
       { src: "IMG_1568.png", title: "予告状" },
       { src: "IMG_1563.png", title: "謎の紙1" },
