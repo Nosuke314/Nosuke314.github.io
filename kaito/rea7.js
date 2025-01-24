@@ -17,7 +17,7 @@ const tabs = [
       { src: "IMG_1568.png", title: "予告状" },
       { src: "IMG_1563.png", title: "謎の紙1" },
       { src: "IMG_1564.png", title: "謎の紙2" },
-      { src: "IMG_1565.png", title: "謎の紙3" },
+      { src: "IMG_1574.png", title: "謎の紙3" },
       { src: "IMG_1570.png", title: "謎の紙4" },
       { src: "IMG_1569.png", title: "謎の紙5" },
     ],
