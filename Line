@@ -1,4 +1,4 @@
-const ACCESS_TOKEN = "チャンネルアクセストークン";
+const ACCESS_TOKEN ="5yedKNtCyxYUt6y+lrmTeo6y+IMD7Vb8IGYWUYFMvJWAHziLOkwbLzxHE7SYQ9jkZrhhF2eL/OB4XjLapErPy5cnu2HtmHXCrpzVS0ImISbj7VHxkgocI0VtQLRSvOlE4G7rQMmr+zT2qiL4q+DJWAdB04t89/1O/w1cDnyilFU=";
 
 const bot = new LineBotSdk.client(ACCESS_TOKEN);
 function doPost(e) { bot.call(e, callback) };
