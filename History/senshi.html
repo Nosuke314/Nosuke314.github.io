@@ -95,6 +95,15 @@
 .bottom-buttons button:hover {
   background-color: #2e7d32;
 }
+    #version-label {
+  position: fixed;
+  top: 10px;
+  right: 15px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.3); /* 薄く表示 */
+  pointer-events: none;
+  user-select: none;
+}
   </style>
 </head>
 <body>
@@ -302,6 +311,7 @@ function saveData() {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
   </script>
-
+  
+<div id="version-label">v1.0</div>
 </body>
 </html>
