@@ -183,7 +183,9 @@
     async function start() {
   if (isRunning) {
     cancelDisplay = true;
-    await sleep(50); // ← これで「直前の処理をキャンセルした時間」を確保
+    while(isRunning) {
+  await sleep(50);
+}
   }
 
   isPaused = false;
