@@ -83,6 +83,7 @@
     let isRunning = false;
     let currentIndex = 0;
     let currentSentence = "";
+    let cancelDisplay = false; // ← 表示の途中キャンセル用フラグ
     let displayElement = document.getElementById("display");
     let answerBox = document.querySelector(".answer-box");
     let currentAnswer = "";
@@ -92,7 +93,11 @@
     }
 
     async function start() {
-      if (isRunning) return;
+  // すでに表示中の場合、それをキャンセル
+  if (isRunning) {
+    cancelDisplay = true;
+    await sleep(10); // キャンセルの反映を待つ
+  }
 
       // ランダムにQAを選択
       const qa = qaList[Math.floor(Math.random() * qaList.length)];
@@ -104,8 +109,10 @@
       answerBox.textContent = "タップして答えを表示";
       currentIndex = 0;
       isRunning = true;
+      cancelDisplay = false;  // ← 中断フラグをリセット
 
       while (currentIndex < currentSentence.length) {
+        if (cancelDisplay) break;
         if (isPaused) {
           await sleep(100);
           continue;
