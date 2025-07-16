@@ -132,7 +132,7 @@
   <div id="qa-list" style="display:none;"></div>
 
   <script>
-    const dataVersion = "1.0"; // ← 問題を修正したら "1.1" に上げる！
+    const dataVersion = "1.1"; // ← 問題を修正したら "1.1" に上げる！
     function toggleMemorizedCurrent() {
   if (currentQAIndex !== null) {
     qaList[currentQAIndex].memorized = document.getElementById("memorizedCheck").checked;
@@ -153,6 +153,7 @@
       { question: "更新世中期から後期(約60万〜30万年前)に生存した、高度な石器により毛皮の衣服を作ったと言われる化石人類は？", answer: "旧人" },
       { question: "19世紀半ば、ドイツのとある渓谷で発見された旧人は何人？", answer: "ネアンデルタール人" },
       { question: "ネアンデルタール人の化石の遺跡にみられた、宗教的行為の始まりと言われたものは何？", answer: "埋葬の習慣" },
+      { question: "石塊から剥ぎ取った石のかけらから制作した石器をなんという？", answer: "剥片石器" },
       { question: "体型など、容姿は現在の人間と違いがあまりみられない、約20万年前に出現した化石人類は？", answer: "新人" },
       { question: "南西フランスで発見された現生人類の直接の祖先にあたる新人は何人？", answer: "クロマニョン人" },
       { question: "北京南西郊外の周口店の上洞で発見された新人は何人？", answer: "周口店上洞人" },
@@ -315,6 +316,6 @@ function saveData() {
     }
   </script>
   
-<div id="version-label">v1.0</div>
+<div id="version-label">v1.1</div>
 </body>
 </html>
