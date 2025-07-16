@@ -123,6 +123,7 @@
   <div id="qa-list" style="display:none;"></div>
 
   <script>
+    const dataVersion = "1.0"; // ← 問題を修正したら "1.1" に上げる！
     function toggleMemorizedCurrent() {
   if (currentQAIndex !== null) {
     qaList[currentQAIndex].memorized = document.getElementById("memorizedCheck").checked;
@@ -169,18 +170,33 @@
     let currentQAIndex = null; // ← 表示中の問題のインデックス（追跡用）
 
     window.onload = () => {
-      displayElement = document.getElementById("display");
-      answerBox = document.querySelector(".answer-box");
-      const saved = localStorage.getItem("qaList");
-      if (saved) {
-        qaList = JSON.parse(saved);
-      }
-      renderList();
-    };
+  displayElement = document.getElementById("display");
+  answerBox = document.querySelector(".answer-box");
 
-    function saveData() {
-      localStorage.setItem("qaList", JSON.stringify(qaList));
+  const saved = localStorage.getItem("qaData");
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if (parsed.version === dataVersion) {
+      qaList = parsed.qaList;
+    } else {
+      // バージョンが違うので、新しいデータで保存
+      saveData();
     }
+  } else {
+    // 初回起動時
+    saveData();
+  }
+
+  renderList();
+};
+
+function saveData() {
+  const dataToSave = {
+    version: dataVersion,
+    qaList: qaList
+  };
+  localStorage.setItem("qaData", JSON.stringify(dataToSave));
+}
 
     function setMode(mode) {
       currentMode = mode;
