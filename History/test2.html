@@ -91,10 +91,23 @@
 
   <div id="display"></div>
   <div class="answer-box" onclick="showAnswer()">タップして答えを表示</div>
+  <div style="margin: 10px 0;">
+  <label>
+    <input type="checkbox" id="memorizedCheck" onchange="toggleMemorizedCurrent()">
+    この問題は覚えた
+  </label>
+</div>
 
   <div id="qa-list" style="display:none;"></div>
 
   <script>
+    function toggleMemorizedCurrent() {
+  if (currentQAIndex !== null) {
+    qaList[currentQAIndex].memorized = document.getElementById("memorizedCheck").checked;
+    saveData();
+  }
+}
+    
     let qaList = [
       { question: "文献や文字による記録の存在しない時代をなんという？", answer: "先史時代", memorized: false },
       { question: "最古の化石人類で、原始的な打製石器を使用したと言われるのは？", answer: "猿人", memorized: false },
@@ -111,6 +124,7 @@
     let answerBox;
     let currentAnswer = "";
     let currentMode = "all";
+    let currentQAIndex = null; // ← 表示中の問題のインデックス（追跡用）
 
     window.onload = () => {
       displayElement = document.getElementById("display");
@@ -143,48 +157,56 @@
     }
 
     async function start() {
-      if (isRunning) {
-        cancelDisplay = true;
-        while (isRunning) {
-          await sleep(1);
-        }
-      }
-
-      isPaused = false;
-      displayElement.textContent = "";
-      answerBox.textContent = "タップして答えを表示";
-      currentIndex = 0;
-      isRunning = true;
-      cancelDisplay = false;
-
-      let candidates = qaList;
-      if (currentMode === "notMemorized") {
-        candidates = qaList.filter(q => !q.memorized);
-      }
-      if (candidates.length === 0) {
-        displayElement.textContent = "問題がありません。";
-        isRunning = false;
-        return;
-      }
-
-      const qa = candidates[Math.floor(Math.random() * candidates.length)];
-      currentSentence = qa.question;
-      currentAnswer = qa.answer;
-
-      while (currentIndex < currentSentence.length) {
-        if (cancelDisplay) break;
-        if (isPaused) {
-          await sleep(100);
-          continue;
-        }
-        displayElement.textContent += currentSentence[currentIndex];
-        currentIndex++;
-        await sleep(100); // ← ここでスピード変更可能（1文字ごとの間隔）
-      }
-
-      isRunning = false;
+  if (isRunning) {
+    cancelDisplay = true;
+    while (isRunning) {
+      await sleep(1);
     }
+  }
 
+  isPaused = false;
+  displayElement.textContent = "";
+  answerBox.textContent = "タップして答えを表示";
+  currentIndex = 0;
+  isRunning = true;
+  cancelDisplay = false;
+  currentQAIndex = null;
+
+  let candidates = qaList;
+  if (currentMode === "notMemorized") {
+    candidates = qaList.map((q, i) => ({ ...q, index: i })).filter(q => !q.memorized);
+  } else {
+    candidates = qaList.map((q, i) => ({ ...q, index: i }));
+  }
+
+  if (candidates.length === 0) {
+    displayElement.textContent = "問題がありません。";
+    isRunning = false;
+    return;
+  }
+
+  const qa = candidates[Math.floor(Math.random() * candidates.length)];
+  currentSentence = qa.question;
+  currentAnswer = qa.answer;
+  currentQAIndex = qa.index;
+
+  // チェックボックスの状態を更新
+  document.getElementById("memorizedCheck").checked = qaList[currentQAIndex].memorized;
+
+  while (currentIndex < currentSentence.length) {
+    if (cancelDisplay) break;
+    if (isPaused) {
+      await sleep(100);
+      continue;
+    }
+    displayElement.textContent += currentSentence[currentIndex];
+    currentIndex++;
+    await sleep(100); // 表示速度（ms）
+  }
+
+  isRunning = false;
+}
+    
     function togglePause() {
       isPaused = !isPaused;
     }
