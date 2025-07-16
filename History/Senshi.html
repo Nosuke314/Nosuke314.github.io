@@ -106,6 +106,7 @@ button:hover {
       currentAnswer = qa.answer;
 
       // 初期化
+      isPaused = false; // ← ← ← 一時停止状態を解除する！
       displayElement.textContent = "";
       answerBox.textContent = "タップして答えを表示";
       currentIndex = 0;
