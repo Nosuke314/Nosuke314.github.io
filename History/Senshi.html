@@ -97,9 +97,9 @@ button:hover {
   if (isRunning) {
     cancelDisplay = true;
     while (isRunning) {
-    await sleep(1); // キャンセルの反映をまたない
+    await sleep(1); // キャンセルの反映を待たない
+　  }
   }
-
       // ランダムにQAを選択
       const qa = qaList[Math.floor(Math.random() * qaList.length)];
       currentSentence = qa.question;
