@@ -174,18 +174,22 @@
   answerBox = document.querySelector(".answer-box");
 
   const saved = localStorage.getItem("qaData");
-  if (saved) {
-    const parsed = JSON.parse(saved);
-    if (parsed.version === dataVersion) {
-      qaList = parsed.qaList;
-    } else {
-      // バージョンが違うので、新しいデータで保存
-      saveData();
-    }
-  } else {
-    // 初回起動時
-    saveData();
-  }
+  if (parsed.version === dataVersion) {
+  qaList = parsed.qaList;
+} else {
+  // バージョンが違う → 覚えた情報を引き継ぐ
+  const oldList = parsed.qaList;
+
+  qaList = qaList.map(newItem => {
+    const match = oldList.find(oldItem => oldItem.question === newItem.question);
+    return {
+      ...newItem,
+      memorized: match ? match.memorized : false
+    };
+  });
+
+  saveData();
+}
 
   renderList();
 };
