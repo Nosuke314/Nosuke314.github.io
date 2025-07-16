@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>早押しクイズ風タイピング表示</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+      background-color: #f4f4f4;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    #display {
+      font-size: 24px;
+      white-space: pre-wrap;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      min-height: 100px;
+      flex-grow: 1;
+    }
+
+    .answer-box {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #ddd;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 20px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #1976d2;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #145ea8;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="display"></div>
+
+  <div class="answer-box" onclick="showAnswer()">タップして答えを表示</div>
+
+  <div class="buttons">
+    <button onclick="start()">新しい文章を表示</button>
+    <button onclick="togglePause()">一時停止</button>
+  </div>
+
+  <script>
+    const qaList = [
+      { question: "これは何の動物の鳴き声でしょう？「ワンワン！」", answer: "犬" },
+      { question: "彼は明日どこに行く予定でしょう？「飛行機に乗って海外へ……」", answer: "空港" },
+      { question: "赤くて丸くて甘い果物は？", answer: "りんご" },
+      { question: "朝起きたら最初にすることは？", answer: "顔を洗う" },
+      { question: "漢字で「学校」を英語で言うと？", answer: "school" }
+    ];
+
+    let isPaused = false;
+    let isRunning = false;
+    let currentIndex = 0;
+    let currentSentence = "";
+    let displayElement = document.getElementById("display");
+    let answerBox = document.querySelector(".answer-box");
+    let currentAnswer = "";
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function start() {
+      if (isRunning) return;
+
+      // ランダムにQAを選択
+      const qa = qaList[Math.floor(Math.random() * qaList.length)];
+      currentSentence = qa.question;
+      currentAnswer = qa.answer;
+
+      // 初期化
+      displayElement.textContent = "";
+      answerBox.textContent = "タップして答えを表示";
+      currentIndex = 0;
+      isRunning = true;
+
+      while (currentIndex < currentSentence.length) {
+        if (isPaused) {
+          await sleep(100);
+          continue;
+        }
+        displayElement.textContent += currentSentence[currentIndex];
+        currentIndex++;
+        await sleep(200);
+      }
+
+      isRunning = false;
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+      const btn = document.querySelectorAll("button")[1];
+      btn.textContent = isPaused ? "再開" : "一時停止";
+    }
+
+    function showAnswer() {
+      if (currentAnswer !== "") {
+        answerBox.textContent = currentAnswer;
+      }
+    }
+  </script>
+
+</body>
+</html>
