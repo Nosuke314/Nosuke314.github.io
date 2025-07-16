@@ -96,7 +96,8 @@ button:hover {
   // すでに表示中の場合、それをキャンセル
   if (isRunning) {
     cancelDisplay = true;
-    await sleep(10); // キャンセルの反映を待つ
+    while (isRunning) {
+    await sleep(1); // キャンセルの反映をまたない
   }
 
       // ランダムにQAを選択
