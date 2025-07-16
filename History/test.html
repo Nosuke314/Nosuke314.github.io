@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>記憶クイズアプリ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    #display {
+      font-size: 36px;
+      background: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      min-height: 100px;
+      white-space: pre-wrap;
+      margin-bottom: 20px;
+    }
+
+    .answer-box {
+      padding: 20px;
+      background-color: #ddd;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 28px;
+      cursor: pointer;
+      user-select: none;
+      margin-bottom: 20px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      border: none;
+      background-color: #1976d2;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #145ea8;
+    }
+
+    .mode-button.active {
+      background-color: #f57c00;
+    }
+
+    #qa-list {
+      margin-top: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid #999;
+      padding: 10px;
+      text-align: left;
+    }
+
+    input[type="checkbox"] {
+      transform: scale(1.5);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>記憶クイズアプリ</h1>
+
+  <div class="buttons">
+    <button onclick="setMode('all')" class="mode-button active">全ての問題</button>
+    <button onclick="setMode('notMemorized')" class="mode-button">覚えていない問題だけ</button>
+    <button onclick="setMode('list')" class="mode-button">問題一覧を見る</button>
+    <button onclick="start()">新しい問題を出す</button>
+    <button onclick="togglePause()">一時停止</button>
+  </div>
+
+  <div id="display"></div>
+  <div class="answer-box" onclick="showAnswer()">タップして答えを表示</div>
+
+  <div id="qa-list" style="display:none;"></div>
+
+  <script>
+    let qaList = [
+      { question: "文献や文字による記録の存在しない時代をなんという？", answer: "先史時代", memorized: false },
+      { question: "最古の化石人類で、原始的な打製石器を使用したと言われるのは？", answer: "猿人", memorized: false },
+      { question: "打製石器とは何か？", answer: "石を打ち砕いて作る石器", memorized: false },
+      { question: "アウストラロピテクスは何時代の人類？", answer: "猿人", memorized: false }
+    ];
+
+    let isPaused = false;
+    let isRunning = false;
+    let currentIndex = 0;
+    let currentSentence = "";
+    let cancelDisplay = false;
+    let displayElement = document.getElementById("display");
+    let answerBox = document.querySelector(".answer-box");
+    let currentAnswer = "";
+    let currentMode = "all";
+
+    window.onload = () => {
+      const saved = localStorage.getItem("qaList");
+      if (saved) {
+        qaList = JSON.parse(saved);
+      }
+      renderList();
+    };
+
+    function saveData() {
+      localStorage.setItem("qaList", JSON.stringify(qaList));
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.querySelectorAll(".mode-button").forEach(btn => btn.classList.remove("active"));
+      if (mode === "all") {
+        document.querySelectorAll(".mode-button")[0].classList.add("active");
+        document.getElementById("qa-list").style.display = "none";
+      } else if (mode === "notMemorized") {
+        document.querySelectorAll(".mode-button")[1].classList.add("active");
+        document.getElementById("qa-list").style.display = "none";
+      } else if (mode === "list") {
+        document.querySelectorAll(".mode-button")[2].classList.add("active");
+        document.getElementById("qa-list").style.display = "block";
+        renderList();
+      }
+    }
+
+    async function start() {
+      if (isRunning) {
+        cancelDisplay = true;
+        while (isRunning) {
+          await sleep(1);
+        }
+      }
+
+      isPaused = false;
+      displayElement.textContent = "";
+      answerBox.textContent = "タップして答えを表示";
+      currentIndex = 0;
+      isRunning = true;
+      cancelDisplay = false;
+
+      let candidates = qaList;
+      if (currentMode === "notMemorized") {
+        candidates = qaList.filter(q => !q.memorized);
+      }
+      if (candidates.length === 0) {
+        displayElement.textContent = "問題がありません。";
+        isRunning = false;
+        return;
+      }
+
+      const qa = candidates[Math.floor(Math.random() * candidates.length)];
+      currentSentence = qa.question;
+      currentAnswer = qa.answer;
+
+      while (currentIndex < currentSentence.length) {
+        if (cancelDisplay) break;
+        if (isPaused) {
+          await sleep(100);
+          continue;
+        }
+        displayElement.textContent += currentSentence[currentIndex];
+        currentIndex++;
+        await sleep(150);
+      }
+
+      isRunning = false;
+    }
+
+    function togglePause() {
+      isPaused = !isPaused;
+    }
+
+    function showAnswer() {
+      if (currentAnswer !== "") {
+        answerBox.textContent = currentAnswer;
+      }
+    }
+
+    function renderList() {
+      const container = document.getElementById("qa-list");
+      let html = "<table><tr><th>問題</th><th>答え</th><th>覚えた</th></tr>";
+      qaList.forEach((qa, index) => {
+        html += \`<tr>
+          <td>\${qa.question}</td>
+          <td>\${qa.answer}</td>
+          <td><input type="checkbox" onchange="toggleMemorized(\${index})" \${qa.memorized ? "checked" : ""}></td>
+        </tr>\`;
+      });
+      html += "</table>";
+      container.innerHTML = html;
+    }
+
+    function toggleMemorized(index) {
+      qaList[index].memorized = !qaList[index].memorized;
+      saveData();
+    }
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+  </script>
+
+</body>
+</html>
