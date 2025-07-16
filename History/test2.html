@@ -75,6 +75,26 @@
     input[type="checkbox"] {
       transform: scale(1.5);
     }
+    .bottom-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin: 20px 0;
+}
+
+.bottom-buttons button {
+  font-size: 24px;
+  padding: 15px 30px;
+  background-color: #388e3c;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.bottom-buttons button:hover {
+  background-color: #2e7d32;
+}
   </style>
 </head>
 <body>
@@ -90,6 +110,10 @@
   </div>
 
   <div id="display"></div>
+<div class="bottom-buttons">
+  <button onclick="togglePause()">⏸ 一時停止</button>
+  <button onclick="start()">⏭ 次の問題へ</button>
+</div>
   <div class="answer-box" onclick="showAnswer()">タップして答えを表示</div>
   <div style="margin: 10px 0;">
   <label>
