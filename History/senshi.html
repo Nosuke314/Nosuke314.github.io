@@ -183,6 +183,7 @@
   answerBox = document.querySelector(".answer-box");
 
   const saved = localStorage.getItem("qaData");
+  const parsed = saved ? JSON.parse(saved) : null;
   if (parsed.version === dataVersion) {
   qaList = parsed.qaList;
 } else {
@@ -200,6 +201,8 @@
   saveData();
 }
 
+document.getElementById("version-label").textContent = "v" + dataVersion;
+      
   renderList();
 };
 
