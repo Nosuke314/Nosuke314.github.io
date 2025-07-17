@@ -137,7 +137,7 @@
   <div id="qa-list" style="display:none;"></div>
 
   <script>
-    const dataVersion = "1.2.1"; // ← 問題を修正したら "1.1" に上げる！
+    const dataVersion = "1.2.2"; // ← 問題を修正したら "1.1" に上げる！
     function toggleMemorizedCurrent() {
   if (currentQAIndex !== null) {
     qaList[currentQAIndex].memorized = document.getElementById("memorizedCheck").checked;
@@ -255,9 +255,6 @@ function saveData() {
   isRunning = true;
   cancelDisplay = false;
   currentQAIndex = null;
-todayCount++;
-saveProgress();
-updateProgressUI();
 
   let candidates = qaList.map((q, i) => ({ ...q, index: i }));
   if (currentMode === "notMemorized") {
@@ -271,6 +268,10 @@ updateProgressUI();
     isRunning = false;
     return;
   }
+
+  todayCount++;
+saveProgress();
+updateProgressUI();
 
   const qa = candidates[Math.floor(Math.random() * candidates.length)];
   currentSentence = qa.question;
@@ -368,7 +369,7 @@ function updateProgressUI() {
 }
   </script>
   
-<div id="version-label">v1.2.1</div>
+<div id="version-label">v1.2.2</div>
 <div id="progress" style="font-size: 18px; margin-top: 10px; color: #555;">
   今日解いた問題数: 0問
 </div>
