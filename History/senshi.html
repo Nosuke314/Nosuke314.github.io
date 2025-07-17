@@ -202,6 +202,7 @@
     return {
       ...newItem,
       memorized: match ? match.memorized : false
+      weak: match ? match.weak : false    // ← これを追加！
     };
   });
 
