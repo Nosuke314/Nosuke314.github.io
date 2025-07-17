@@ -187,6 +187,7 @@
     window.onload = () => {
   displayElement = document.getElementById("display");
   answerBox = document.querySelector(".answer-box");
+  loadProgress();
 
   const saved = localStorage.getItem("qaData");
   const parsed = saved ? JSON.parse(saved) : null;
@@ -254,6 +255,9 @@ function saveData() {
   isRunning = true;
   cancelDisplay = false;
   currentQAIndex = null;
+todayCount++;
+saveProgress();
+updateProgressUI();
 
   let candidates = qaList.map((q, i) => ({ ...q, index: i }));
   if (currentMode === "notMemorized") {
@@ -335,6 +339,32 @@ function saveData() {
     qaList[currentQAIndex].weak = document.getElementById("weakCheck").checked;
     saveData();
   }
+}
+    let todayCount = 0;
+let todayDate = new Date().toLocaleDateString();
+
+function loadProgress() {
+  const saved = localStorage.getItem("progressData");
+  if (saved) {
+    const parsed = JSON.parse(saved);
+    if (parsed.date === todayDate) {
+      todayCount = parsed.count;
+    } else {
+      todayCount = 0; // 日付が違ったらリセット
+    }
+  }
+  updateProgressUI();
+}
+
+function saveProgress() {
+  localStorage.setItem("progressData", JSON.stringify({
+    date: todayDate,
+    count: todayCount
+  }));
+}
+
+function updateProgressUI() {
+  document.getElementById("progress").textContent = `今日解いた問題数: ${todayCount}問`;
 }
   </script>
   
