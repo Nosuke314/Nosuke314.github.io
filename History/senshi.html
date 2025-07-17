@@ -201,7 +201,7 @@
     const match = oldList.find(oldItem => oldItem.question === newItem.question);
     return {
       ...newItem,
-      memorized: match ? match.memorized : false
+      memorized: match ? match.memorized : false,
       weak: match ? match.weak : false    // ← これを追加！
     };
   });
