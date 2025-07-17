@@ -308,6 +308,7 @@ function saveData() {
           <td>${qa.question}</td>
           <td>${qa.answer}</td>
           <td><input type="checkbox" onchange="toggleMemorized(${index})" ${qa.memorized ? "checked" : ""}></td>
+          <td><input type="checkbox" onchange="toggleWeak(${index})" ${qa.weak ? "checked" : ""}></td>
         </tr>`;
       });
       html += "</table>";
