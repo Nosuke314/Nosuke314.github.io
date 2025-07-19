@@ -137,7 +137,7 @@
   <div id="qa-list" style="display:none;"></div>
 
   <script>
-    const dataVersion = "1.2.2"; // ← 問題を修正したら "1.1" に上げる！
+    const dataVersion = "1.2.3"; // ← 問題を修正したら "1.1" に上げる！
     function toggleMemorizedCurrent() {
   if (currentQAIndex !== null) {
     qaList[currentQAIndex].memorized = document.getElementById("memorizedCheck").checked;
@@ -359,20 +359,57 @@ function loadProgress() {
 }
 
 function saveProgress() {
-  localStorage.setItem("progressData", JSON.stringify({
-    date: todayDate,
-    count: todayCount
-  }));
+  const saved = JSON.parse(localStorage.getItem("progressHistory") || "{}");
+  saved[todayDate] = todayCount;
+  localStorage.setItem("progressHistory", JSON.stringify(saved));
 }
 
-function updateProgressUI() {
+function loadProgress() {
+  const saved = JSON.parse(localStorage.getItem("progressHistory") || "{}");
+  todayCount = saved[todayDate] || 0;
+  updateProgressUI();
+}
+
+function updateProgressUIs() {
   document.getElementById("progress").textContent = `今日解いた問題数: ${todayCount}問`;
 }
+
+function toggleHistory() {
+  const panel = document.getElementById("history-panel");
+  const list = document.getElementById("history-list");
+  if (panel.style.display === "none") {
+    panel.style.display = "block";
+    renderHistory();
+  } else {
+    panel.style.display = "none";
+  }
+}
+
+function renderHistory() {
+  const saved = JSON.parse(localStorage.getItem("progressHistory") || "{}");
+  const sortedDates = Object.keys(saved).sort((a, b) => new Date(b) - new Date(a));
+  const list = document.getElementById("history-list");
+  list.innerHTML = "";
+  sortedDates.forEach(date => {
+    const li = document.createElement("li");
+    li.textContent = `${date}: ${saved[date]}問`;
+    list.appendChild(li);
+  });
+}
+
   </script>
   
-<div id="version-label">v1.2.2</div>
+<div id="version-label">v1.2.3</div>
 <div id="progress" style="font-size: 18px; margin-top: 10px; color: #555;">
   今日解いた問題数: 0問
 </div>
+<div style="margin-top: 20px;">
+  <button onclick="toggleHistory()">📊 日々の記録を見る</button>
+</div>
+<div id="history-panel" style="display:none; margin-top: 10px; background: #fff; padding: 20px; border-radius: 8px;">
+  <h3>日々の記録</h3>
+  <ul id="history-list" style="list-style: none; padding-left: 0;"></ul>
+</div>
+
 </body>
 </html>
