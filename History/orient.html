@@ -345,19 +345,6 @@ updateProgressUI();
     let todayCount = 0;
 let todayDate = new Date().toLocaleDateString();
 
-function loadProgress() {
-  const saved = localStorage.getItem("progressData");
-  if (saved) {
-    const parsed = JSON.parse(saved);
-    if (parsed.date === todayDate) {
-      todayCount = parsed.count;
-    } else {
-      todayCount = 0; // 日付が違ったらリセット
-    }
-  }
-  updateProgressUI();
-}
-
 function saveProgress() {
   const saved = JSON.parse(localStorage.getItem("progressHistory") || "{}");
   saved[todayDate] = todayCount;
@@ -370,7 +357,7 @@ function loadProgress() {
   updateProgressUI();
 }
 
-function updateProgressUIs() {
+function updateProgressUI() {
   document.getElementById("progress").textContent = `今日解いた問題数: ${todayCount}問`;
 }
 
