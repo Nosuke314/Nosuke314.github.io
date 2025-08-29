@@ -67,14 +67,21 @@
     },
     "神山紗枝": {
       steps: null,
-      answer: "神山紗枝(43)\n詳細は未だ調査中。自宅にて何者かに刺されたことによる失血死。\n近所との付き合いも全く無く、被害者について詳しい情報は未だ集まっていない。\nなお、自宅からは金属製の腕輪(現在調査中)が異常な数発見された。"
+      answer: "神山紗枝(43)\n詳細は未だ調査中。(本件の情報について、他事件との関連も検討されているため、全情報を見るには権限者名とパスワードを打ち込んでください) 自宅にて何者かに刺されたことによる失血死。\n近所との付き合いも全く無く、被害者について詳しい情報は未だ集まっていない。\nなお、自宅からは金属製の腕輪(現在調査中)が異常な数発見された。"
     },
-    "help": {
+    "": {
       steps: null,
       answer: "使用可能なコマンド: help, めかぶ, もずく, ワキガ"
     }
   };
 
+  const aliases = {
+  "メカブ": "めかぶ",
+  "mekabu": "めかぶ",
+  "モズク": "もずく",
+  "mozuku": "もずく"
+};
+  
   const chat = document.getElementById("chat");
   const input = document.getElementById("input");
 
@@ -118,7 +125,10 @@
   const enterBtn = document.getElementById("enter-btn");
 
 function submitCommand() {
-  const cmd = input.value.trim();
+  let cmd = input.value.trim();
+  if (aliases[cmd]) {
+    cmd = aliases[cmd];  // 本体のキーに変換
+  }
   if (cmd) handleCommand(cmd);
   input.value = "";
 }
