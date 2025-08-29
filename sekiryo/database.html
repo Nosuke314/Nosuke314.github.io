@@ -8,6 +8,17 @@
     #chat { padding: 10px; height: 90vh; overflow-y: auto; white-space: pre-wrap; }
     #input-area { position: fixed; bottom: 0; width: 100%; background: black; padding: 5px; }
     #input { width: 95%; background: black; color: #00ff00; border: none; outline: none; font-family: monospace; }
+    /* スマホ用（画面幅が600px以下のとき） */
+@media screen and (max-width: 600px) {
+  #chat {
+    height: 70vh;   /* ログ部分を少し低めに */
+    font-size: 14px; /* 文字を少し小さめ */
+  }
+  #input {
+    height: 2.5em;   /* 入力欄を少し低め */
+    font-size: 16px; /* 入力しやすい大きさ */
+  }
+}
   </style>
 </head>
 <body>
