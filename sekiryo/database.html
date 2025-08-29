@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>チャット情報集積サイト</title>
+  <style>
+    body { background: black; color: #00ff00; font-family: monospace; margin: 0; }
+    #chat { padding: 10px; height: 90vh; overflow-y: auto; white-space: pre-wrap; }
+    #input-area { position: fixed; bottom: 0; width: 100%; background: black; padding: 5px; }
+    #input { width: 95%; background: black; color: #00ff00; border: none; outline: none; font-family: monospace; }
+  </style>
+</head>
+<body>
+  <div id="chat"></div>
+  <div id="input-area">
+    <span>&gt; </span><input type="text" id="input" autofocus>
+  </div>
+
+<script>
+  // 基本の段階ステップ（全コマンド共通）
+  const defaultSteps = [
+    { text: "検索しています...", delay: 500 },
+    { text: "候補を照合中...", delay: 1000 }
+  ];
+
+  // コマンドごとの設定
+  const responses = {
+    "めかぶ": {
+      steps: null,
+      answer: "めかぶはアルギン酸を含む海藻です。"
+    },
+    "もずく": {
+      steps: [
+        { text: "データベースへアクセス中...", delay: 700 },
+        { text: "一致するデータを探しています...", delay: 1200 }
+      ],
+      answer: "もずくはフコイダンが豊富です。"
+    },
+    "ワキガ": {
+      steps: null,
+      answer: "ワキガはアポクリン腺からの分泌物と菌の作用によって臭いが発生します。"
+    },
+    "help": {
+      steps: null,
+      answer: "使用可能なコマンド: help, めかぶ, もずく, ワキガ"
+    }
+  };
+
+  const chat = document.getElementById("chat");
+  const input = document.getElementById("input");
+
+  function addLine(text) {
+    chat.textContent += text + "\n";
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  function handleCommand(cmd) {
+    addLine("> " + cmd);
+
+    // 未登録ワードならエラーメッセージ
+    if (!responses[cmd]) {
+      addLine("不明な入力です。");
+      return;
+    }
+
+    // ステップを選択（専用ステップがあればそれを、なければデフォルト）
+    const stepsToUse = responses[cmd].steps || defaultSteps;
+
+    let totalDelay = 0;
+    stepsToUse.forEach(step => {
+      totalDelay += step.delay;
+      setTimeout(() => addLine(step.text), totalDelay);
+    });
+
+    // 最後に答えを表示
+    totalDelay += 1000;
+    setTimeout(() => {
+      addLine("こちらがヒットしました:\n" + responses[cmd].answer);
+    }, totalDelay);
+  }
+
+  input.addEventListener("keydown", e => {
+    if (e.key === "Enter") {
+      const cmd = input.value.trim();
+      if (cmd) handleCommand(cmd);
+      input.value = "";
+    }
+  });
+</script>
+</body>
+</html>
