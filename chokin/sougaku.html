@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>貯金額可視化</title>
+  <title>家族共有 貯金額</title>
   <style>
     body {
       font-family: sans-serif;
@@ -12,78 +12,77 @@
       align-items: center;
       height: 100vh;
     }
-    .container {
+    .box {
       background: white;
       padding: 30px;
       border-radius: 10px;
       width: 300px;
       text-align: center;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
     .money {
       font-size: 32px;
       margin: 20px 0;
     }
-    input {
+    input, button {
       width: 100%;
-      padding: 8px;
-      font-size: 16px;
-      margin-bottom: 10px;
-    }
-    button {
-      width: 100%;
-      padding: 10px;
-      font-size: 14px;
       margin: 5px 0;
-      cursor: pointer;
+      padding: 10px;
     }
-    .add { background: #4caf50; color: white; border: none; }
-    .sub { background: #f44336; color: white; border: none; }
-    .reset { background: #999; color: white; border: none; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h2>現在の貯金額</h2>
+  <div class="box">
+    <h2>家族の貯金額</h2>
     <div class="money" id="money">¥0</div>
-
-    <input type="number" id="input" placeholder="金額を入力">
-
-    <button class="add" onclick="addMoney()">追加</button>
-    <button class="sub" onclick="subMoney()">減算</button>
-    <button class="reset" onclick="resetMoney()">リセット</button>
+    <input type="number" id="input" placeholder="金額">
+    <button onclick="add()">追加</button>
+    <button onclick="sub()">減算</button>
+    <button onclick="reset()">リセット</button>
   </div>
 
+  <!-- Firebase（importは使わない） -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
   <script>
-    let money = Number(localStorage.getItem("money")) || 0;
-    const moneyDisplay = document.getElementById("money");
+    const firebaseConfig = {
+      apiKey: "AIzaSyDyjvSfJ3AuhomGJrrK1xdQ13DHoKm0ey4",
+      authDomain: "money-management-31415.firebaseapp.com",
+      databaseURL: "https://money-management-31415-default-rtdb.firebaseio.com",
+      projectId: "money-management-31415",
+    };
 
-    function updateDisplay() {
-      moneyDisplay.textContent = "¥" + money.toLocaleString();
-      localStorage.setItem("money", money);
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.database();
+    const ref = db.ref("money");
+
+    const display = document.getElementById("money");
+    const input = document.getElementById("input");
+
+    ref.on("value", snap => {
+      const value = snap.val() || 0;
+      display.textContent = "¥" + value.toLocaleString();
+    });
+
+    function add() {
+      const v = Number(input.value);
+      if (!v) return;
+      ref.transaction(m => (m || 0) + v);
+      input.value = "";
     }
 
-    function addMoney() {
-      const value = Number(document.getElementById("input").value);
-      if (!value) return;
-      money += value;
-      updateDisplay();
+    function sub() {
+      const v = Number(input.value);
+      if (!v) return;
+      ref.transaction(m => (m || 0) - v);
+      input.value = "";
     }
 
-    function subMoney() {
-      const value = Number(document.getElementById("input").value);
-      if (!value) return;
-      money -= value;
-      updateDisplay();
+    function reset() {
+      if (!confirm("本当にリセットしますか？")) return;
+      ref.set(0);
     }
-
-    function resetMoney() {
-      if (!confirm("本当に0円にリセットしますか？")) return;
-      money = 0;
-      updateDisplay();
-    }
-
-    updateDisplay();
   </script>
 </body>
 </html>
