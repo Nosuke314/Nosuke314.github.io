@@ -1,78 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>最終報告書</title>
+<title>最終報告書提出</title>
+
 <style>
-body { font-family: sans-serif; line-height: 2; }
-input { width: 100px; }
-.correct { color: green; }
-.incorrect { color: red; }
+body {
+    background-color: #f4f4f4;
+    font-family: "Yu Mincho", serif;
+    margin: 0;
+    padding: 40px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    padding: 40px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+    letter-spacing: 3px;
+    margin-bottom: 30px;
+}
+
+textarea {
+    width: 100%;
+    height: 300px;
+    font-size: 16px;
+    line-height: 1.8;
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 30px;
+    font-size: 16px;
+    background-color: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #333;
+}
+
+.result {
+    margin-top: 20px;
+    font-weight: bold;
+}
 </style>
 </head>
 <body>
 
-<h2>行方不明事案 最終報告書</h2>
+<div class="container">
+<h1>行方不明事案 最終報告書</h1>
 
-<p>
-行方不明であった
-<input id="q1"> は以前
-<input id="q2"> と
-<input id="q3"> の3人で友好関係を持っていたが、齟齬が生じ、それをきっかけとして
-<input id="q4"> は
-<input id="q5"> に
-<input id="q6"> を取りに行かせ
-<input id="q7"> を
-<input id="q8"> に
-<input id="q9"> した。
-誰にも気づかれぬまま時が経ち、
-<input id="q10"> の扉が開かれ、
-<input id="q11"> は自分に強い責任を感じてしまい、
-<input id="q12"> してしまった。
-</p>
+<textarea id="report">
+行方不明であった（　　　）は以前（　　　）と（　　　）の3人で友好関係を持っていたが、齟齬が生じ、それをきっかけとして（　　　）は（　　　）に（　　　）を取りに行かせ（　　　）を（　　　）に（　　　）した。誰にも気づかれぬまま時が経ち、（　　　）の扉が開かれ、（　　　）は自分に強い責任を感じてしまい、（　　　）してしまった。
+</textarea>
 
-<button onclick="checkAnswers()">送信</button>
+<button onclick="checkReport()">提出</button>
 
-<p id="result"></p>
+<div class="result" id="result"></div>
+
+</div>
 
 <script>
 function normalize(str) {
-    return str.trim().replace(/\s+/g, "");
+    return str.replace(/\s+/g, "");
 }
 
-function checkAnswers() {
+function checkReport() {
 
-    const answers = [
-        "根元紬希",        // q1
-        "千都世凪紗",        // q2
-        "室瀬穂乃花",        // q3
-        "室瀬穂乃花",        // q4
-        "千都世凪紗",        // q5
-        "旧エネルギー室の鍵",      // q6
-        "根元紬希",        // q7
-        "旧エネルギー室",  // q8
-        "監禁", // q9
-        "旧エネルギー室",  // q10
-        "千都世凪紗",        // q11
-        "自殺"     // q12
+    const text = document.getElementById("report").value;
+
+    const keywords = [
+        "B",
+        "A",
+        "C",
+        "鍵",
+        "図書室",
+        "閉じ込めた",
+        "失踪"
     ];
 
-    let correct = true;
+    let correctCount = 0;
 
-    for (let i = 1; i <= answers.length; i++) {
-        const userInput = normalize(document.getElementById("q"+i).value);
-        if (userInput !== normalize(answers[i-1])) {
-            correct = false;
-            break;
+    for (let word of keywords) {
+        if (normalize(text).includes(normalize(word))) {
+            correctCount++;
         }
     }
 
-    if (correct) {
-        document.getElementById("result").innerHTML =
-        "<span class='correct'>報告受理：事案の再構成が完了しました。</span>";
+    if (correctCount >= keywords.length) {
+        document.getElementById("result").innerText =
+        "報告受理：事案の再構成が確認されました。";
     } else {
-        document.getElementById("result").innerHTML =
-        "<span class='incorrect'>報告不十分：内容に誤りがあります。</span>";
+        document.getElementById("result").innerText =
+        "報告不十分：記述内容を再確認してください。";
     }
 }
 </script>
